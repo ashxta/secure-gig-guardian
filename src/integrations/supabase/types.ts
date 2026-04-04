@@ -14,7 +14,158 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      claims: {
+        Row: {
+          claim_type: string
+          created_at: string
+          id: string
+          notes: string | null
+          payout_amount: number
+          policy_id: string
+          resolved_at: string | null
+          status: Database["public"]["Enums"]["claim_status"]
+          trigger_reason: string
+          triggered_at: string
+          updated_at: string
+          worker_id: string
+        }
+        Insert: {
+          claim_type: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          payout_amount?: number
+          policy_id: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["claim_status"]
+          trigger_reason: string
+          triggered_at?: string
+          updated_at?: string
+          worker_id: string
+        }
+        Update: {
+          claim_type?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          payout_amount?: number
+          policy_id?: string
+          resolved_at?: string | null
+          status?: Database["public"]["Enums"]["claim_status"]
+          trigger_reason?: string
+          triggered_at?: string
+          updated_at?: string
+          worker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claims_policy_id_fkey"
+            columns: ["policy_id"]
+            isOneToOne: false
+            referencedRelation: "insurance_policies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claims_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "workers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      insurance_policies: {
+        Row: {
+          active: boolean
+          aqi: number | null
+          coverage_type: string
+          created_at: string
+          id: string
+          notes: string | null
+          policy_number: string
+          rainfall: number | null
+          risk_score: number | null
+          safe_zone: number | null
+          temperature: number | null
+          updated_at: string
+          weekly_premium: number
+          worker_id: string
+        }
+        Insert: {
+          active?: boolean
+          aqi?: number | null
+          coverage_type?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          policy_number: string
+          rainfall?: number | null
+          risk_score?: number | null
+          safe_zone?: number | null
+          temperature?: number | null
+          updated_at?: string
+          weekly_premium?: number
+          worker_id: string
+        }
+        Update: {
+          active?: boolean
+          aqi?: number | null
+          coverage_type?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          policy_number?: string
+          rainfall?: number | null
+          risk_score?: number | null
+          safe_zone?: number | null
+          temperature?: number | null
+          updated_at?: string
+          weekly_premium?: number
+          worker_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "insurance_policies_worker_id_fkey"
+            columns: ["worker_id"]
+            isOneToOne: false
+            referencedRelation: "workers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          location: string | null
+          name: string
+          phone: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          location?: string | null
+          name: string
+          phone?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          location?: string | null
+          name?: string
+          phone?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +174,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      claim_status: "pending" | "approved" | "rejected" | "paid"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +301,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      claim_status: ["pending", "approved", "rejected", "paid"],
+    },
   },
 } as const
