@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { FileWarning, Plus, ArrowLeft } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import type { Tables } from "@/integrations/supabase/types";
-import NavLink from "@/components/NavLink";
+import { NavLink } from "@/components/NavLink";
 
 type Claim = Tables<"claims">;
 type Policy = Tables<"insurance_policies">;

@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import DynamicPricing from "@/components/DynamicPricing";
 import type { PricingResult } from "@/lib/dynamicPricing";
 import type { Tables } from "@/integrations/supabase/types";
-import NavLink from "@/components/NavLink";
+import { NavLink } from "@/components/NavLink";
 
 type Policy = Tables<"insurance_policies">;
 
